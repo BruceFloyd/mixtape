@@ -12,8 +12,9 @@ Create beautiful, shareable mixtapes presented as animated retro cassette tapes.
 - 🎵 **Web Playback** - Stream music directly using Spotify's Web Playback SDK
 - 🔗 **Shareable Links** - Each mixtape gets a unique URL to share
 - 📱 **Mobile Responsive** - Works beautifully on all devices
-- 💾 **SQLite Database** - Lightweight local storage for mixtapes
+- 💾 **Dual Database Support** - PostgreSQL for production, SQLite for local development
 - 🎭 **Personalization** - Add custom titles and messages to your mixtapes
+- ☁️ **Cloud Ready** - One-click deploy to Railway + Vercel
 
 ## 🚀 Tech Stack
 
@@ -27,7 +28,7 @@ Create beautiful, shareable mixtapes presented as animated retro cassette tapes.
 ### Backend
 - **Node.js** - Runtime environment
 - **Express** - Web server framework
-- **SQLite (better-sqlite3)** - Database
+- **PostgreSQL / SQLite** - Database (PostgreSQL in production, SQLite for local dev)
 - **Spotify Web API** - Music data and authentication
 
 ## 📋 Prerequisites
@@ -236,20 +237,54 @@ npm start          # Restart - database will be recreated
 
 ## 🚀 Deployment
 
-### Backend (e.g., Railway, Render, Heroku)
-1. Set environment variables in your hosting platform
-2. Update \`REDIRECT_URI\` to your production URL
-3. Deploy the \`/backend\` directory
+### Quick Deploy to Railway + Vercel (Recommended)
 
-### Frontend (e.g., Vercel, Netlify)
-1. Build the frontend: \`npm run build\`
-2. Deploy the \`/frontend/dist\` directory
-3. Update backend \`FRONTEND_URL\` to your production URL
+We've made deployment super easy! Follow our comprehensive deployment guide:
 
-### Important: Update Spotify App Settings
-1. Go to Spotify Developer Dashboard
-2. Edit your app
-3. Add production redirect URI: \`https://your-domain.com/api/auth/callback\`
+**📖 [Read the Full Deployment Guide →](./DEPLOYMENT.md)**
+
+### Overview
+
+**Backend → Railway**
+- Free tier includes PostgreSQL database
+- Automatic deployments from GitHub
+- Environment variable management
+- SSL included
+
+**Frontend → Vercel**
+- Free tier with unlimited deployments
+- Automatic builds and deployments
+- Global CDN
+- SSL included
+
+### Quick Setup Summary
+
+1. **Deploy Backend to Railway**
+   - Connect your GitHub repo
+   - Set root directory to `backend`
+   - Add PostgreSQL database
+   - Configure environment variables
+   - Get your backend URL
+
+2. **Deploy Frontend to Vercel**
+   - Connect your GitHub repo
+   - Set root directory to `frontend`
+   - Add `VITE_API_URL` environment variable
+   - Get your frontend URL
+
+3. **Update Spotify App**
+   - Add production redirect URI
+   - Update website URL
+
+**That's it!** Every `git push` automatically deploys your changes.
+
+For detailed step-by-step instructions with screenshots and troubleshooting, see **[DEPLOYMENT.md](./DEPLOYMENT.md)**
+
+### Alternative Deployment Options
+
+- **Docker**: Use the provided configuration (coming soon)
+- **Other PaaS**: Render, Fly.io, Heroku all work similarly
+- **VPS**: Requires manual setup with PM2 or similar
 
 ## 📝 License
 

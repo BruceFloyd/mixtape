@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const user = getUser(userId);
+    const user = await getUser(userId);
     const { title, message, tracks, colorTheme } = req.body;
 
     if (!title || !tracks || tracks.length === 0) {
@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
       color_theme: colorTheme || 'retro'
     };
 
-    createMixtape(mixtape);
+    await createMixtape(mixtape);
 
     res.json({
       success: true,
@@ -64,7 +64,7 @@ router.post('/', async (req, res) => {
 router.get('/:slug', async (req, res) => {
   try {
     const { slug } = req.params;
-    const mixtape = getMixtapeBySlug(slug);
+    const mixtape = await getMixtapeBySlug(slug);
 
     if (!mixtape) {
       return res.status(404).json({ error: 'Mixtape not found' });
@@ -81,7 +81,7 @@ router.get('/:slug', async (req, res) => {
 router.post('/:id/play', async (req, res) => {
   try {
     const { id } = req.params;
-    incrementPlayCount(id);
+    await incrementPlayCount(id);
     res.json({ success: true });
   } catch (error) {
     console.error('Increment play count error:', error);
@@ -98,7 +98,7 @@ router.get('/user/mine', async (req, res) => {
   }
 
   try {
-    const mixtapes = getUserMixtapes(userId);
+    const mixtapes = await getUserMixtapes(userId);
     res.json(mixtapes);
   } catch (error) {
     console.error('Get user mixtapes error:', error);

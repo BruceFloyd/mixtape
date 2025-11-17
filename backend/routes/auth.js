@@ -75,7 +75,7 @@ router.get('/callback', async (req, res) => {
     const user = userProfile.data;
 
     // Save user to database
-    saveUser({
+    await saveUser({
       spotify_id: user.id,
       display_name: user.display_name,
       email: user.email,
@@ -109,7 +109,7 @@ router.get('/me', async (req, res) => {
   }
 
   try {
-    const user = getUser(userId);
+    const user = await getUser(userId);
 
     if (!user) {
       return res.status(401).json({ error: 'User not found' });
@@ -149,7 +149,7 @@ router.post('/refresh', async (req, res) => {
   }
 
   try {
-    const user = getUser(userId);
+    const user = await getUser(userId);
 
     if (!user || !user.refresh_token) {
       return res.status(401).json({ error: 'No refresh token' });
@@ -174,7 +174,7 @@ router.post('/refresh', async (req, res) => {
     const { access_token, expires_in } = tokenResponse.data;
 
     // Update user tokens in database
-    updateUserTokens(
+    await updateUserTokens(
       userId,
       access_token,
       user.refresh_token,

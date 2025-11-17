@@ -13,7 +13,7 @@ const requireAuth = async (req, res, next) => {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
-  const user = getUser(userId);
+  const user = await getUser(userId);
 
   if (!user || !user.access_token) {
     return res.status(401).json({ error: 'User not found or no access token' });
